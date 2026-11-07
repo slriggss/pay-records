@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pay Records &mdash; Executive Pay at U.S. Public Companies</title>
+<meta name="description" content="What 1,904 U.S. public companies told the SEC about CEO pay, 2021&ndash;2025: pay by company size, industry, state, and stock return, from pay-versus-performance filings.">
+<link rel="canonical" href="https://slriggss.github.io/pay-records/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pay Records">
+<meta property="og:title" content="Pay Records &mdash; Executive Pay at U.S. Public Companies">
+<meta property="og:description" content="1,904 companies, 7,985 company-years of CEO pay from SEC pay-versus-performance filings, with a searchable explorer.">
+<meta property="og:url" content="https://slriggss.github.io/pay-records/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('esg-theme');
+      document.documentElement.setAttribute('data-theme', t || 'dark');
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Pay Records</a>
+    <div class="links">
+      <a href="index.html" class="active">Report</a>
+      <a href="explorer.html">Explorer</a>
+      <button class="btn" id="theme-toggle" type="button" style="margin-left:20px;" aria-label="Switch color theme"></button>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="wrap">
+    <h1>CEO pay looks flat across 2021&ndash;2025 until you hold the companies constant</h1>
+    <p class="byline">Shelby L. Riggs &middot; Executive compensation analysis &middot; SEC pay-versus-performance filings, 2021&ndash;2025</p>
+    <p class="summary">
+      Since 2022, SEC rules have required U.S. public companies to disclose, for the last five fiscal years, what they paid
+      their chief executive, what that pay was worth after stock moves (&ldquo;compensation actually paid&rdquo;), what they paid
+      their other named executives, and the company's total shareholder return. This report reads those tables for 1,904
+      companies. Median CEO pay across all filers <em>fell</em> from $7.1M to $5.0M, but among the 1,063 companies that
+      reported in all five years it <em>rose</em> from $7.2M to $8.1M: the fall is mostly smaller companies joining the data.
+      Pay scales steeply with company size, and &ldquo;actually paid&rdquo; pay tracks stock returns far more closely than
+      the headline number does.
+    </p>
+    <div class="stat-grid">
+      <div class="stat-tile"><div class="value">1,904</div><div class="label">Companies</div></div>
+      <div class="stat-tile"><div class="value">7,985</div><div class="label">Company-years, FY2021&ndash;25</div></div>
+      <div class="stat-tile"><div class="value">99%</div><div class="label">With CEO pay reported</div></div>
+      <div class="stat-tile"><div class="value">$5.0M</div><div class="label">Median CEO pay, 2025</div></div>
+    </div>
+    <nav class="section-nav" aria-label="Report sections">
+      <div class="nav-group cmp">
+        <h3>Pay levels</h3>
+        <a href="#s-trend">Trend, and a trap in it</a>
+        <a href="#s-size">Pay by company size</a>
+      </div>
+      <div class="nav-group gov">
+        <h3>Pay and performance</h3>
+        <a href="#s-pfp">Pay versus stock return</a>
+      </div>
+      <div class="nav-group env">
+        <h3>Where</h3>
+        <a href="#s-industry">By industry</a>
+        <a href="#s-state">By state</a>
+      </div>
+      <div class="nav-group soc">
+        <h3>The data</h3>
+        <a href="#s-method">About the data</a>
+        <a href="explorer.html">Search every company</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<noscript>
+  <div class="wrap"><p class="noscript-note">The charts on this page are drawn with JavaScript, which is turned off in your browser. The written findings below still read in full, and every number in them comes from the same data set.</p></div>
+</noscript>
+<div class="wrap"><p class="load-error" id="load-error" role="alert" hidden></p></div>
+
+<main class="wrap">
+
+  <aside class="read-first" aria-label="Limits of this analysis">
+    <h2>What these numbers can and can't say</h2>
+    <ul>
+      <li><strong>Not the Fortune 500.</strong> The Fortune 500 list is licensed, so this covers every company whose pay-versus-performance table appears as tagged data in the SEC's records: 1,904 companies, from very large to very small. Company size matters a great deal for pay (finding 2), so compare like with like.</li>
+      <li><strong>CEO and average-of-the-rest only.</strong> The tagged table gives CEO pay and the <em>average</em> pay of the other named executives, not each executive's own salary. A full top-five breakdown would need the Summary Compensation Table, which companies do not tag as data.</li>
+      <li><strong>Reported pay is not take-home pay.</strong> &ldquo;Total pay&rdquo; counts stock and option grants at their grant-date value. &ldquo;Compensation actually paid&rdquo; revalues those awards as the stock moves, so it can be far above or below total pay, and below zero.</li>
+      <li><strong>Association, not cause.</strong> Companies with strong returns pay their CEOs more in &ldquo;actually paid&rdquo; terms, but they are also younger, smaller, and more equity-heavy. Nothing here shows that pay <em>drove</em> performance.</li>
+      <li><strong>The data has errors, and some were fixed here.</strong> About 12% of CEO-years in 2025 report more than one CEO (the highest-paid is used). Six companies whose filings mis-scaled their own pay tables, and 55 impossible stock-return values, were blanked. Details are under About the data.</li>
+    </ul>
+  </aside>
+
+  <section class="finding" id="s-trend">
+    <span class="tag tag-bigthree">Trend</span>
+    <h2>Median CEO pay fell 29% across all filers, and rose 12% among companies tracked throughout</h2>
+    <p>
+      Across every company reporting in a given year, median CEO pay was $7.1M in 2021, $5.8M in 2022, $4.4M in 2023,
+      $4.8M in 2024, and $5.0M in 2025. Read alone, that says pay fell by almost a third. It did not.
+      The number of companies in the data grew from 1,112 in 2021 to 1,889 in 2025, and the added companies are mostly smaller,
+      which pay less (finding 2). Holding the same 1,063 companies constant, the median moves from $7.2M (2021) to $6.5M (2022), then up
+      to $7.1M, $7.8M, and $8.1M in 2025.
+    </p>
+    <p>
+      The honest reading is the second line: pay at companies present throughout dipped in 2022 and has risen since.
+      Any year-over-year comparison that does not hold the sample fixed measures who is in the data as much as what they are paid.
+    </p>
+    <div class="chart-card"><div class="chart-holder" style="height:380px;"><canvas id="chart-trend"></canvas></div></div>
+    <p class="figure-note">Median CEO total pay (Summary Compensation Table value), in $ millions. Companies paying their CEO $0 are excluded. Hover for the number of companies.</p>
+  </section>
+
+  <section class="finding" id="s-size">
+    <span class="tag tag-esgfam">Size</span>
+    <h2>A CEO at a $50B-revenue company is paid roughly ten times a CEO at a company under $500M</h2>
+    <p>
+      In 2024, median CEO pay was $2.3M at the 678 companies with revenue under $500M, $5.9M at $500M&ndash;$2B (368 companies),
+      $10.6M at $2B&ndash;$10B (322), $16.4M at $10B&ndash;$50B (109), and $22.5M at the 32 companies above $50B.
+      Across the 1,484 companies with both figures, the rank correlation between revenue and CEO pay is 0.66.
+      The same slope shows up in the other named executives: their average pay rises from $1.0M to $9.3M across the same groups.
+    </p>
+    <p>
+      Size is the first thing to control for before reading any other pattern here. Industry and state medians (below)
+      are not size-adjusted, so part of any gap between them is simply that one place has bigger companies.
+    </p>
+    <div class="chart-card"><div class="chart-holder" style="height:360px;"><canvas id="chart-size"></canvas></div></div>
+    <p class="figure-note">Median CEO total pay by the company's own 2024 revenue. Revenue is the largest reported revenue line in the SEC's tagged financial data; 1,484 of 1,850 companies with CEO pay have one. Hover for the middle half of pay and the company count.</p>
+  </section>
+
+  <section class="finding" id="s-pfp">
+    <span class="tag tag-governance">Pay and performance</span>
+    <h2>&ldquo;Actually paid&rdquo; pay is 5.7 times higher at the best-performing companies; reported pay is 2.4 times higher</h2>
+    <p>
+      Rank 2025's 1,619 companies by cumulative total shareholder return (the value of $100 invested at the start of the five-year
+      window) and split them into four equal groups. In the bottom group, median CEO &ldquo;compensation actually paid&rdquo; was $2.0M;
+      in the top group, $11.5M. Reported total pay (the headline Summary Compensation Table number) moved much less,
+      from $3.2M to $7.6M. For the typical company in the bottom group, actually-paid pay was 16% <em>below</em> reported pay;
+      in the top group it was 45% above.
+    </p>
+    <p>
+      This is the design of the table: actually-paid pay revalues stock awards as the share price moves, so it tracks returns by
+      construction. The rank correlation between return and the actually-paid/reported ratio is 0.42. What the figure does not show
+      is whether boards <em>chose</em> to pay for performance or whether the stock award simply carried returns into the number, and
+      high-return companies also differ in size and age.
+    </p>
+    <div class="chart-card"><div class="chart-holder" style="height:380px;"><canvas id="chart-pfp"></canvas></div></div>
+    <p class="figure-note">Median CEO pay by quartile of cumulative total shareholder return, fiscal 2025. Return is the value of $100 invested at the start of each company's five-year table. Hover for the return range and company count.</p>
+  </section>
+
+  <section class="finding" id="s-industry">
+    <span class="tag tag-active">Industry</span>
+    <h2>Software pays CEOs the most at the median; banks and lenders the least</h2>
+    <p>
+      Among industries with at least 25 companies, 2024 median CEO pay is highest in software and IT services ($7.9M, 173 companies),
+      transportation and communications ($7.8M, 64), and asset managers and investment firms ($7.1M, 48). It is lowest in
+      banks and lenders ($1.9M, 176) and medical devices ($3.7M, 75). Size explains much of it: the 81 banks that report a revenue figure have median revenue of $162M, against $770M for software companies, which is the size effect from finding 2 again.
+      Industries are my groupings of SEC Standard Industrial Classification codes; the Explorer shows each company's own code description.
+    </p>
+    <div class="chart-card"><div class="chart-holder" style="height:520px;"><canvas id="chart-industry"></canvas></div></div>
+    <p class="figure-note">Median CEO total pay in 2024, by industry group with 25+ companies. Not adjusted for company size.</p>
+  </section>
+
+  <section class="finding" id="s-state">
+    <span class="tag tag-active">Place</span>
+    <h2>By headquarters state, medians run from $1.8M to $7.1M, but most states have too few companies to say much</h2>
+    <p>
+      Of the states with at least 25 companies in 2024, Arizona has the highest median ($7.1M, 30 companies), followed by Connecticut and Illinois.
+      California ($5.6M, 363 companies) sits above New York ($4.2M, 194). The lowest are Nevada ($1.8M, 25 companies) and New Jersey ($3.0M, 71).
+      Treat the ends of this ranking as noise: with 25 to 40 companies a handful of very large or very small firms moves the median,
+      and state is where the company is headquartered, not where its executives live or where its employees are paid.
+    </p>
+    <div class="chart-card"><div class="chart-holder" style="height:560px;"><canvas id="chart-state"></canvas></div></div>
+    <p class="figure-note">Median CEO total pay in 2024 for the 19 states with 25+ companies, by principal business address. Not adjusted for company size.</p>
+  </section>
+
+  <section class="methodology" id="s-method">
+    <h2>About the data</h2>
+    <h3>Where it comes from</h3>
+    <p>
+      Pay figures come from the SEC's <code>ecd</code> (Executive Compensation Disclosure) tags: CEO total pay, CEO compensation actually paid,
+      the average of other named executives' total pay and actually-paid pay, and total shareholder return, for fiscal years 2021&ndash;2025.
+      Revenue comes from the SEC's tagged financial statements; industry, state and ticker from each company's SEC submissions record.
+      The fiscal year is the calendar year containing the midpoint of the company's fiscal year, so a fiscal year ending in March 2022 is counted as 2021.
+    </p>
+    <h3>The coverage gap, and how it was closed</h3>
+    <p>
+      The SEC's bulk &ldquo;frames&rdquo; service drops any tagged value that carries a dimension. Many companies tag each executive by name in the table, so their CEO pay was missing: the first pull had CEO pay for only about 65% of company-years (5,021 of 7,772). To close the gap,
+      <code>scripts/fetch_proxy.js</code> reads the pay-versus-performance table directly from each affected company's two most recent proxy statements (DEF 14A, inline XBRL),
+      and <code>scripts/merge_proxy.js</code> fills only values the first pull left empty; it never overwrites one. CEO pay is now present for 99% of company-years
+      (7,926 of 7,985), the remainder are company-years where no usable table could be recovered.
+    </p>
+    <h3>Cleaning rules</h3>
+    <ul>
+      <li><strong>Several CEOs in a year.</strong> Where the table lists more than one CEO with pay in a year, the highest-paid is used and the row is marked. Executives listed at $0 for years they did not serve are ignored.</li>
+      <li><strong>Mis-scaled filings.</strong> Six companies' tables are off by a factor of 1,000 in the companies' own tagged data (CEO pay of $1 billion or more): American Outdoor Brands, LeMaitre Vascular, OneSpaWorld Holdings, Sutro Biopharma, U-Haul Holding Company and Worthington Enterprises. Their 25 company-years are shown in the Explorer with pay blanked and a note.</li>
+      <li><strong>$0 CEO pay.</strong> Sixty-five company-years report $0, usually externally managed REITs and funds. They are kept in the Explorer and left out of medians.</li>
+      <li><strong>Stock return.</strong> Fifty-five return values above $20,000 per $100 invested were blanked as filer errors.</li>
+      <li><strong>Medians, not means.</strong> Pay is heavily skewed by a few very large grants, so every figure is a median unless stated.</li>
+    </ul>
+    <h3>Not checked</h3>
+    <p>
+      I did not check each filer's numbers against its proxy statement by hand. The cleaning rules catch scaling errors large enough to be impossible; smaller errors would remain.
+      The industry grouping is my own mapping of SIC codes and can be argued with.
+    </p>
+    <h3>Rebuild it</h3>
+    <p>Node 18+; the SEC asks for a descriptive User-Agent, which the scripts set.</p>
+    <pre><code>node scripts/fetch_sec.js        # SEC frames + submissions -> data/raw
+node scripts/build_panel.js      # -> data/panel.json (first pull, with the coverage gap)
+node scripts/fetch_proxy.js      # DEF 14A inline XBRL for companies with gaps -> data/raw/proxy
+node scripts/merge_proxy.js      # fills the gaps in data/panel.json
+node scripts/build_site_data.js  # -> data/site_data.json, data/findings.json</code></pre>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    Data: SEC EDGAR (XBRL pay-versus-performance disclosures). Built by Shelby L. Riggs with Claude Code.
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt" crossorigin="anonymous"></script>
+<script src="js/charts-common.js"></script>
+<script src="js/report.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/effects.js"></script>
+</body>
+</html>

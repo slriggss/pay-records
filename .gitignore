@@ -1,0 +1,6 @@
+# Raw SEC downloads are large and fully re-creatable with scripts/fetch_sec.js and scripts/fetch_proxy.js
+data/raw/
+data/panel_frames_only.json
+node_modules/
+.DS_Store
+Thumbs.db

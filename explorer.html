@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explorer &mdash; Pay Records</title>
+<meta name="description" content="Search and sort CEO pay, compensation actually paid, and stock return for 1,904 U.S. public companies, 2021&ndash;2025.">
+<link rel="canonical" href="https://slriggss.github.io/pay-records/explorer.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  (function () {
+    try { var t = localStorage.getItem('esg-theme'); document.documentElement.setAttribute('data-theme', t || 'dark'); }
+    catch (e) { document.documentElement.setAttribute('data-theme', 'dark'); }
+  })();
+</script>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Pay Records</a>
+    <div class="links">
+      <a href="index.html">Report</a>
+      <a href="explorer.html" class="active">Explorer</a>
+      <button class="btn" id="theme-toggle" type="button" style="margin-left:20px;" aria-label="Switch color theme"></button>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="wrap">
+    <h1>Explore the pay records</h1>
+    <p class="byline">Filter every company-year by fiscal year, industry, state, or name. The summary numbers and the table recompute in your browser.</p>
+  </div>
+</header>
+
+<noscript>
+  <div class="wrap"><p class="noscript-note">The explorer needs JavaScript to load and filter the records, and it is turned off in your browser. The full data set is in the repository (<code>data/panel.json</code>), and the <a href="index.html">report</a> reads without it.</p></div>
+</noscript>
+<div class="wrap"><p class="load-error" id="load-error" role="alert" hidden></p></div>
+
+<main class="wrap">
+
+  <div class="dashboard-toolbar">
+    <div class="filter-block">
+      <div class="filter-label" id="year-label">Fiscal year</div>
+      <div class="chip-row" id="year-chips" role="group" aria-labelledby="year-label"></div>
+    </div>
+    <div class="filter-split">
+      <div class="filter-block">
+        <label class="filter-label" for="f-group">Industry group</label>
+        <select id="f-group" class="text-search"></select>
+      </div>
+      <div class="filter-block">
+        <label class="filter-label" for="f-state">Headquarters state</label>
+        <select id="f-state" class="text-search"></select>
+      </div>
+    </div>
+    <div class="filter-block">
+      <label class="filter-label" for="f-text">Company name or ticker</label>
+      <input id="f-text" class="text-search" type="search" autocomplete="off" placeholder="e.g. Oracle, ORCL&hellip;">
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn" id="btn-export-csv">Download filtered rows (CSV)</button>
+      <button class="btn" id="btn-reset" style="margin-left:8px;">Reset all filters</button>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-tile"><div class="value" id="stat-n">&ndash;</div><div class="label">Company-years in view</div></div>
+    <div class="stat-tile"><div class="value" id="stat-ceo">&ndash;</div><div class="label">Median CEO total pay</div></div>
+    <div class="stat-tile"><div class="value" id="stat-cap">&ndash;</div><div class="label">Median CEO actually paid</div></div>
+    <div class="stat-tile"><div class="value" id="stat-neo">&ndash;</div><div class="label">Median other-executive average</div></div>
+  </div>
+
+  <hr class="rule">
+  <p class="result-count" id="result-count"></p>
+  <div class="table-wrap">
+    <table class="data-table" id="data-table">
+      <thead>
+        <tr>
+          <th class="sortable" data-sort="name" tabindex="0">Company</th>
+          <th class="sortable" data-sort="year" tabindex="0">FY</th>
+          <th class="sortable" data-sort="group" tabindex="0">Industry</th>
+          <th class="sortable" data-sort="hqState" tabindex="0">State</th>
+          <th class="sortable" data-sort="ceo" tabindex="0">CEO total pay</th>
+          <th class="sortable" data-sort="ceoCap" tabindex="0">CEO actually paid</th>
+          <th class="sortable" data-sort="neo" tabindex="0">Other execs (avg)</th>
+          <th class="sortable" data-sort="rev" tabindex="0">Revenue</th>
+          <th class="sortable" data-sort="tsr" tabindex="0">Return per $100</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"><tr><td colspan="10" class="loading-note">Loading records&hellip;</td></tr></tbody>
+    </table>
+  </div>
+  <p><button class="btn" id="btn-more" hidden>Show 200 more</button></p>
+  <p class="table-foot">Pay is in U.S. dollars. &ldquo;Return per $100&rdquo; is the value of $100 invested at the start of the company's five-year table. Notes: <strong>2+ CEOs</strong> means the company reported more than one CEO that year and the highest-paid is shown; <strong>$0 pay</strong> means the company reported paying its CEO nothing; <strong>scale error</strong> means the company's own filing is off by a factor of 1,000, so its pay figures are blanked. See <a href="index.html#s-method">About the data</a>.</p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    Data: SEC EDGAR (XBRL pay-versus-performance disclosures). Built by Shelby L. Riggs with Claude Code.
+  </div>
+</footer>
+
+<script src="js/explorer.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/effects.js"></script>
+</body>
+</html>
